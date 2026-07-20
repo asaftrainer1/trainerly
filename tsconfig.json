@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+"esModuleInterop": true,
+"suppressImplicitAnyIndexErrors": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "skipLibCheck": true,
