@@ -18,14 +18,13 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <ErrorBoundary fallbackTitle="Trainerly hit an unexpected error">
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <AuthProvider>
-            <AppRoutes />
-            <Toaster />
-          </AuthProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ErrorBoundary>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
+  </QueryClientProvider>
+</ErrorBoundary>
   );
 }
