@@ -1,4 +1,4 @@
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from '@/hooks/useAuth';
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppRoutes } from "@/routes/AppRoutes";
@@ -18,13 +18,14 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <ErrorBoundary fallbackTitle="Trainerly hit an unexpected error">
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </AuthProvider>
-  </QueryClientProvider>
-</ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes />
+            <Toaster />
+          </BrowserRouter>
+        </AuthProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
