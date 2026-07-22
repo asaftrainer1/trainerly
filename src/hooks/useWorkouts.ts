@@ -185,4 +185,89 @@ export function useDeleteExercise() {
       queryClient.invalidateQueries({ queryKey: ["program", variables.program_id] });
     },
   });
+
+// ==================== NEW FUNCTIONS FOR EXERCISES ====================
+
+export function useAddExercise() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: {
+      program_id: string;
+      exercise_name: string;
+      day_number: number;
+      exercise_order: number;
+      category: 'warmup' | 'main' | 'cardio' | 'stretching';
+      sets?: number;
+      reps?: string;
+      target_weight?: number;
+      tempo?: string;
+      rest_seconds?: number;
+      rir?: number;
+      notes_trainer?: string;
+    }) => {
+      const { error } = await supabase
+        .from('program_exercises')
+        .insert([data]);
+      if (error) throw error;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['program', variables.program_id] });
+    },
+  });
+}
+
+export function useGetExercises(programId: string) {
+  return useQuery({
+    queryKey: ['exercises', programId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('program_exercises')
+        .select('*')
+        .eq('program_id', programId)
+        .order('day_number')
+        .order('exercise_order');
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+export function useRecordPerformance() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: {
+      exercise_id: string;
+      client_id: string;
+      performed_date: string;
+      weight_used?: number;
+      reps_performed?: number;
+      rpe?: number;
+      notes?: string;
+    }) => {
+      const { error } = await supabase
+        .from('exercise_performance')
+        .insert([data]);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['performance'] });
+    },
+  });
+}
+
+export function useGetPerformanceHistory(exerciseId: string) {
+  return useQuery({
+    queryKey: ['performance', exerciseId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('exercise_performance')
+        .select('*')
+        .eq('exercise_id', exerciseId)
+        .order('performed_date', { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
 }

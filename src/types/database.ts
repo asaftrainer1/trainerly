@@ -312,4 +312,18 @@ export type ExerciseLog = Database["public"]["Tables"]["exercise_logs"]["Row"];
 export type DailyMetric = Database["public"]["Tables"]["daily_metrics"]["Row"];
 export type ProgramWithWorkouts = Program & {
   workouts: (Workout & { exercises: Exercise[] })[];
+
+  // New types for program exercises and tracking
+export type ProgramExercise = Database["public"]["Tables"]["program_exercises"]["Row"];
+export type ExercisePerformance = Database["public"]["Tables"]["exercise_performance"]["Row"];
+export type WorkoutSession = Database["public"]["Tables"]["workout_session"]["Row"];
+
+// Combined types
+export type ProgramWithExercises = Program & {
+  exercises?: ProgramExercise[];
+};
+
+export type ExerciseWithPerformance = ProgramExercise & {
+  performances?: ExercisePerformance[];
+};
 };
