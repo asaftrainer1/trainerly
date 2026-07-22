@@ -55,6 +55,8 @@ export function useProgram(programId: string | undefined) {
 export function useCreateProgram() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+console.log('User ID:', user?.id);
+console.log('Full User:', user);
 
   return useMutation({
     mutationFn: async (input: Partial<Program> & { name: string }) => {
