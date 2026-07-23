@@ -1,13 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 
-interface AuthContextType {
-  user: any;
+interface AuthContextType 
+ {
+user: any;
   role: string | null;
   loading: boolean;
+  signUp: (email: string, password: string, fullName: string, role: "trainer" | "client") => Promise<{ error: string | null }>;
 }
 
-const AuthContext = createContext<AuthContextType>({ user: null, role: null, loading: true });
+const AuthContext = createContext<AuthContextType>({ 
+  user: null, 
+  role: null, 
+  loading: true,
+  signUp: async () => ({ error: null }),
+  signIn: async () => ({ error: null }),
+  signOut: async () => {},
+  refreshProfile: async () => {}
+});
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(null);
@@ -27,7 +37,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, role, loading }}>
+    
+    <AuthContext.Provider value={{ user, role, loading, signUp, signIn, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

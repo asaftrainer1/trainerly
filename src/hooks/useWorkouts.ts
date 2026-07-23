@@ -185,7 +185,7 @@ export function useDeleteExercise() {
       queryClient.invalidateQueries({ queryKey: ["program", variables.program_id] });
     },
   });
-
+}
 // ==================== NEW FUNCTIONS FOR EXERCISES ====================
 
 export function useAddExercise() {

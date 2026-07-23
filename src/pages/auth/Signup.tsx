@@ -15,8 +15,8 @@ export default function Signup() {
   const [password, setPassword] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
-  const [submitted, setSubmitted] = React.useState(false);
-
+  const [role, setRole] = React.useState<"trainer" | "client">("client");
+  
   if (!authLoading && user) return <Navigate to="/" replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,7 +29,7 @@ export default function Signup() {
     }
 
     setIsSubmitting(true);
-    const { error } = await signUp(email, password, fullName);
+    const { error } = await signup(email, password, fullName, role);
     setIsSubmitting(false);
 
     if (error) {
@@ -115,6 +115,31 @@ export default function Signup() {
               </p>
             )}
 
+<div className="space-y-1.5 mb-6">
+  <Label>I am a:</Label>
+  <div className="flex gap-4">
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input
+        type="radio"
+        name="role"
+        value="trainer"
+        checked={role === "trainer"}
+        onChange={(e) => setRole("trainer")}
+      />
+      <span>Trainer (מאמן)</span>
+    </label>
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input
+        type="radio"
+        name="role"
+        value="client"
+        checked={role === "client"}
+        onChange={(e) => setRole("client")}
+      />
+      <span>Client (מתאמן)</span>
+    </label>
+  </div>
+</div>
             <Button type="submit" variant="premium" className="w-full" disabled={isSubmitting}>
               {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
               Create account
