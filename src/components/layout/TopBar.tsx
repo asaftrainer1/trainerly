@@ -1,3 +1,4 @@
+import { ThemeToggle } from "../ThemeToggle";
 import { useNavigate } from "react-router-dom";
 import { Menu, LogOut, Settings, User as UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -56,6 +57,7 @@ export function TopBar({ title }: { title?: string }) {
             </Avatar>
             <span className="hidden text-sm font-medium sm:inline">{displayName}</span>
           </button>
+          <ThemeToggle />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-52">
           <DropdownMenuLabel className="font-normal">
@@ -77,6 +79,7 @@ export function TopBar({ title }: { title?: string }) {
             Sign out
           </DropdownMenuItem>
         </DropdownMenuContent>
+        <ThemeToggle />
       </DropdownMenu>
     </header>
   );
