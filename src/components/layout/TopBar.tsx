@@ -48,39 +48,41 @@ export function TopBar({ title }: { title?: string }) {
         )}
       </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-2.5 transition-colors hover:bg-secondary">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={profile?.avatar_url ?? undefined} alt={displayName} />
-              <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
-            </Avatar>
-            <span className="hidden text-sm font-medium sm:inline">{displayName}</span>
-          </button>
-          <ThemeToggle />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-52">
-          <DropdownMenuLabel className="font-normal">
-            <p className="truncate text-sm font-medium text-foreground">{displayName}</p>
-            <p className="truncate text-xs text-muted-foreground">{user?.email}</p>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate("/settings")}>
-            <UserIcon className="mr-2 h-4 w-4" />
-            Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => navigate("/settings")}>
-            <Settings className="mr-2 h-4 w-4" />
-            Settings
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
-            <LogOut className="mr-2 h-4 w-4" />
-            Sign out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
+      <div className="flex items-center gap-2">
         <ThemeToggle />
-      </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-2.5 transition-colors hover:bg-secondary">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={profile?.avatar_url ?? undefined} alt={displayName} />
+                <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
+              </Avatar>
+              <span className="hidden text-sm font-medium sm:inline">{displayName}</span>
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-52">
+            <DropdownMenuLabel className="font-normal">
+              <p className="truncate text-sm font-medium text-foreground">{displayName}</p>
+              <p className="truncate text-xs text-muted-foreground">{user?.email}</p>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
+              <UserIcon className="mr-2 h-4 w-4" />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </header>
   );
 }
