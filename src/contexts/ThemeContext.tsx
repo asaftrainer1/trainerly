@@ -17,6 +17,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (saved) setTheme(saved);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   const toggleTheme = () => {
     setTheme(prev => {
       const newTheme = prev === "light" ? "dark" : "light";
