@@ -269,5 +269,3 @@ export function useGetPerformanceHistory(exerciseId: string) {
     },
   });
 }
-
-}
